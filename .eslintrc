@@ -1,0 +1,48 @@
+{
+    "env": {
+      "browser": true,
+      "es2020": true
+    },
+    "extends": [
+      "react-app",
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:prettier/recommended",
+      "plugin:import/recommended"
+    ],
+    "plugins": ["import", "simple-import-sort"],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 11,
+      "sourceType": "module"
+    },
+    "rules": {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "sort-imports": "off",
+      "import/order": "off",
+      "linebreak-style": "off",
+      "quotes": ["error", "double"],
+      "semi": ["error", "always"],
+      "prettier/prettier": ["error"],
+      "eqeqeq": "error",
+      "no-unused-vars": "warn",
+      "no-unused-labels": "warn",
+      "no-unused-expressions": "warn",
+      "react/prop-types": 0,
+      "react/display-name": [0],
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off"
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"],
+          "moduleDirectory": ["node_modules", "src/"]
+        }
+      }
+    }
+  }
+  
