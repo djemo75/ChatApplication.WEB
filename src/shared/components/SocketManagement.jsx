@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { showNotification } from "redux/settings/actions";
 import {
+  addMessage,
   modifyUserById,
   setFriendRequests,
   setFriends,
@@ -20,7 +21,7 @@ const SocketManagement = ({ children }) => {
         query: `userId=${user.id}`,
       });
 
-      socket.on("connect", (data) => {
+      socket.on("connect", () => {
         socket.emit("user:setStatusToOnline");
 
         socket.emit("user:fetchFriends");
@@ -40,36 +41,41 @@ const SocketManagement = ({ children }) => {
             }),
           );
         });
+
+        socket.on("message:receive", (data) => {
+          dispatch(addMessage(data));
+        });
+
+        socket.on("notification", (data) => {
+          dispatch(showNotification(data));
+        });
       });
 
       //
+
       socket.on("connecting", (data) => {
-        console.log("Connecting", data);
+        console.log("IO ERROR:Connecting", data);
       });
       socket.on("disconnect", (data) => {
-        console.log("disconnected", data);
+        console.log("IO ERROR:disconnected", data);
       });
       socket.on("connect_failed", (data) => {
-        console.log("Connect_failed", data);
+        console.log("IO ERROR:Connect_failed", data);
       });
       socket.on("error", (data) => {
-        console.log("Error", data);
+        console.log("IO ERROR:Error", data);
       });
       socket.on("message", (data) => {
-        console.log("Message", data);
+        console.log("IO ERROR:Message", data);
       });
       socket.on("reconnect", (data) => {
-        console.log("Reconnect", data);
+        console.log("IO ERROR:Reconnect", data);
       });
       socket.on("reconnecting", (data) => {
-        console.log("reconnecting", data);
+        console.log("IO ERROR:reconnecting", data);
       });
       socket.on("reconnect_failed ", (data) => {
-        console.log("Reconnect_failed ", data);
-      });
-
-      socket.on("notification", (data) => {
-        if (data.type && data.message) toast[data.type](data.message);
+        console.log("IO ERROR:Reconnect_failed ", data);
       });
 
       return () => socket.disconnect();

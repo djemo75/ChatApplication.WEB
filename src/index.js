@@ -1,12 +1,10 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import { ThemeProvider } from "@material-ui/core/styles";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import store from "redux/store";
-import { theme } from "theme";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -28,9 +26,8 @@ ReactDOM.render(
         draggable={true}
         pauseOnHover={true}
       />
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+
+      <App />
     </Provider>
   </BrowserRouter>,
   document.getElementById("root"),

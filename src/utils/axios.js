@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { logout, refreshAuthToken } from "redux/auth/actions";
 import store from "redux/store";
 
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const baseURL = process.env.REACT_APP_API_URL;
 const refreshLogoutMsg = "Your session has run out. You need to login again.";
 const refreshErrorMsg = "Something went wrong with refreshing your session.";
 

@@ -58,7 +58,7 @@ const ChatList = ({
   }, [element]);
 
   return (
-    <Box id="scrollArea" className={classes.chatList}>
+    <Box className={classes.chatList}>
       {list.map((item, index) => (
         <ChatItem
           data={item}

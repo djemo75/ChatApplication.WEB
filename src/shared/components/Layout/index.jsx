@@ -4,9 +4,16 @@ import Navigation from "./Navigation";
 
 const Layout = ({ children }) => {
   return (
-    <Box display="flex" alignItems="stretch" bgcolor="#fbfbfc">
+    <Box
+      display="flex"
+      alignItems="stretch"
+      bgcolor="#fbfbfc"
+      minHeight="100vh"
+    >
       <Navigation />
-      {children}
+      <Box display="flex" alignItems="stretch" width="100%" ml="60px">
+        {children}
+      </Box>
     </Box>
   );
 };

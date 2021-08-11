@@ -5,7 +5,7 @@ import {
   PersonAdd,
   PersonAddDisabled,
 } from "@material-ui/icons";
-import { formatDistanceStrict } from "date-fns";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -34,7 +34,8 @@ const ChatItem = (props) => {
     setIsTargetUser(data.friendship?.addresseeId === user.id);
   }, [data, user]);
 
-  const sendRequest = () => {
+  const sendRequest = (e) => {
+    e.stopPropagation();
     if (socket.connected) {
       socket.emit("sendFriendRequest", { id: data.id }, (response) => {
         if (response.statusCode === "ok") {
@@ -53,7 +54,8 @@ const ChatItem = (props) => {
     }
   };
 
-  const acceptRequest = () => {
+  const acceptRequest = (e) => {
+    e.stopPropagation();
     if (socket.connected) {
       socket.emit("acceptFriendRequest", { id: data.id }, (response) => {
         if (response.statusCode === "ok") {
@@ -72,13 +74,8 @@ const ChatItem = (props) => {
     }
   };
 
-  // const acceptRequest = () => {
-  //   dispatch(acceptFriendRequest(data.id)).then((action) => {
-  //     if (!action.error) setFriendshipStatus(true);
-  //   });
-  // };
-
-  const cancelRequest = () => {
+  const cancelRequest = (e) => {
+    e.stopPropagation();
     if (socket.connected) {
       socket.emit("cancelFriendRequest", { id: data.id }, (response) => {
         if (response.statusCode === "ok") {
@@ -97,18 +94,18 @@ const ChatItem = (props) => {
     } else {
       toast.error("There is a connection problem");
     }
-
-    // dispatch(cancelFriendRequest(data.id)).then((action) => {
-    //   if (!action.error) {
-    //     setFriendshipStatus(null);
-    //     setIsTargetUser(false);
-    //   }
-    // });
   };
 
   const avatar = (
-    <Avatar style={{ background: "#4343a7" }}>
-      {data.primaryText.length && data.primaryText[0].toUpperCase()}
+    <Avatar
+      style={{ background: "#4343a7", border: "1px solid #e2e2e2" }}
+      src={
+        data.avatar
+          ? `${process.env.REACT_APP_API_DOMAIN}${data.avatar.path}`
+          : null
+      }
+    >
+      {data.username.length && data.username[0].toUpperCase()}
     </Avatar>
   );
 
@@ -134,16 +131,23 @@ const ChatItem = (props) => {
       )}
 
       <Box ml={0.75} width="60%">
-        <Box className={classes.username}>{data.primaryText}</Box>
-        <Box className={classes.lastMessage}>{data.secondaryText}</Box>
+        <Box className={classes.username}>{data.username}</Box>
+        <Box className={classes.lastMessage}>{data.email}</Box>
       </Box>
       <Box className={classes.date}>
-        {data.date && formatDistanceStrict(data.date, new Date())}
+        {data.lastMessage && (
+          <>
+            {moment(data.lastMessage.createdAt).isSame(Date.now(), "day")
+              ? moment(data.lastMessage.createdAt).format("HH:mm")
+              : moment(data.lastMessage.createdAt).format("MMM DD")}
+          </>
+        )}
       </Box>
 
       {data.hasNewMessage && (
         <Box className={classes.newMessageIndicator}></Box>
       )}
+
       {showRequestActions && (
         <>
           {friendshipStatus ? (

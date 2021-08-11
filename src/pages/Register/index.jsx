@@ -7,7 +7,7 @@ import { STATIC_ROUTES } from "Routes";
 import AuthMain from "shared/components/AuthMain/index";
 import { useAuthStyles } from "shared/components/AuthMain/styles";
 import FormikField from "shared/components/FormikField";
-import { loginSchema } from "validationSchemas/loginSchema";
+import { registerSchema } from "validationSchemas/registerSchema";
 
 const Register = () => {
   const classes = useAuthStyles();
@@ -34,7 +34,7 @@ const Register = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={loginSchema}
+        validationSchema={registerSchema}
       >
         {({ touched, errors, isSubmitting }) => (
           <Form>

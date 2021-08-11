@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ChatList from "shared/components/ChatList";
 import DebouncedSearch from "shared/components/DebouncedSearch";
 import { useAsideStyles } from "shared/components/Layout/styles";
+import PreviewUserProfile from "shared/components/PreviewUserProfile";
 
 const FriendRequests = () => {
   const classes = useAsideStyles();
@@ -18,19 +19,19 @@ const FriendRequests = () => {
   }, [requests]);
 
   const getData = () => {
-    return requests
-      .filter(
-        (user) =>
-          user.username.search(searchString) !== -1 ||
-          user.email.search(searchString) !== -1,
-      )
-      .map((user) => ({
-        id: user.id,
-        primaryText: user.username,
-        secondaryText: user.email,
-        isOnline: user.isOnline,
-        friendship: user.friendship,
-      }));
+    return requests.filter(
+      (user) =>
+        user.username.search(searchString) !== -1 ||
+        user.email.search(searchString) !== -1,
+    );
+    // .map((user) => ({
+    //   id: user.id,
+    //   primaryText: user.username,
+    //   secondaryText: user.email,
+    //   isOnline: user.isOnline,
+    //   friendship: user.friendship,
+    //   avatar: user.avatar,
+    // }));
   };
 
   const handleSearch = (value) => {
@@ -60,9 +61,8 @@ const FriendRequests = () => {
         />
       </Box>
       {selectedUser ? (
-        <Box width="100%" height="100%">
-          <Box border="5px" width="90%" height="150px" bgcolor="gray"></Box>
-          User {selectedUser.username}
+        <Box width="100%" mr="40px">
+          <PreviewUserProfile {...selectedUser} />
         </Box>
       ) : (
         <Box className={classes.previewBox}>

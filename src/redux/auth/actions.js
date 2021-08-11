@@ -59,7 +59,7 @@ export const refreshAuthToken = (data) => {
 
 //-----
 
-export const SET_AUTH_LOADING = "SET_AUTH_LOADING";
+export const SET_AUTH_LOADING = "setAuthLoading";
 
 export const setAuthLoading = (payload) => {
   return (dispatch) => dispatch({ type: SET_AUTH_LOADING, payload });
@@ -67,13 +67,13 @@ export const setAuthLoading = (payload) => {
 
 //-----
 
-export const LOGOUT = "LOGOUT";
+export const LOGOUT = "logout";
 
 export const logout = () => {
   localStorage.clear();
 
   return (dispatch) => {
     dispatch({ type: LOGOUT });
-    window.location = `${window.origin}/login`;
+    window.history.pushState("", "", `${window.origin}/login`);
   };
 };

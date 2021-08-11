@@ -2,11 +2,12 @@ import { makeStyles } from "@material-ui/core";
 
 export const useNavigationStyles = makeStyles({
   navigation: {
+    position: "fixed",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     background: "#4343a7",
-    minWidth: "60px",
+    width: "60px",
     minHeight: "100vh",
   },
   menuItem: {
@@ -49,17 +50,5 @@ export const useAsideStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-  },
-});
-
-export const useProfileStyles = makeStyles({
-  profileWall: {
-    marginTop: "20px",
-    borderRadius: "5px",
-    width: "100%",
-    height: "200px",
-    bgcolor: "gray",
-    backgroundImage:
-      "url(https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80)",
   },
 });

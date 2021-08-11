@@ -5,6 +5,7 @@ import Home from "pages/Home";
 import Login from "pages/Login";
 import Messages from "pages/Messages";
 import Register from "pages/Register";
+import Settings from "pages/Settings";
 import Users from "pages/Users";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,7 +73,7 @@ const routes = [
   {
     path: STATIC_ROUTES.settings,
     exact: true,
-    component: () => <>daaa</>,
+    component: () => <Settings />,
   },
 ];
 
@@ -98,15 +99,12 @@ export const Routes = () => {
         ? authRoutes.map((route, i) => <Route key={i} {...route} />)
         : routes.map((route, i) => <ProtectedRoute key={i} {...route} />)}
 
-      <Route
+      {/* <Route
         path={STATIC_ROUTES.notFound}
         exact
         component={() => <>Not Found </>}
-      />
-      <Route
-        path="*"
-        component={() => <Redirect to={STATIC_ROUTES.notFound} />}
-      />
+      /> */}
+      <Route path="*" component={() => <Redirect to={STATIC_ROUTES.home} />} />
     </Switch>
   );
 };

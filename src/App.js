@@ -1,6 +1,7 @@
-import { Box, makeStyles } from "@material-ui/core";
+import { Box, makeStyles, ThemeProvider } from "@material-ui/core";
 import { Routes } from "Routes";
 import SocketManagement from "shared/components/SocketManagement";
+import { getTheme } from "theme";
 
 export const useStyles = makeStyles({
   "@keyframes fadeInAnimation": {
@@ -20,11 +21,13 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <SocketManagement>
-        <Routes />
-      </SocketManagement>
-    </Box>
+    <ThemeProvider theme={getTheme()}>
+      <Box className={classes.root}>
+        <SocketManagement>
+          <Routes />
+        </SocketManagement>
+      </Box>
+    </ThemeProvider>
   );
 };
 

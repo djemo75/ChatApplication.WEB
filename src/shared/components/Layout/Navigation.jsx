@@ -3,20 +3,29 @@ import {
   AccessibilityNewOutlined,
   ChatOutlined,
   Contacts,
+  ExitToApp,
   FormatAlignLeftOutlined,
   HomeOutlined,
   PersonAdd,
   Settings,
 } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { logout } from "redux/auth/actions";
 import { STATIC_ROUTES } from "Routes";
 
 import { useNavigationStyles } from "./styles";
 
 const Navigation = () => {
   const classes = useNavigationStyles();
+  const dispatch = useDispatch();
   const friendRequests = useSelector((state) => state.users.friendRequests);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("You have successfully logged out");
+  };
 
   const menuItems = [
     { label: "Home", icon: <HomeOutlined />, to: STATIC_ROUTES.home },
@@ -53,11 +62,21 @@ const Navigation = () => {
 
       {menuItems.map((item, index) => (
         <Link to={item.to} key={index} style={{ width: "100%" }}>
-          <Tooltip to={item.to} title={item.label} placement="right">
+          <Tooltip title={item.label} placement="right">
             <Box className={classes.menuItem}>{item.icon}</Box>
           </Tooltip>
         </Link>
       ))}
+
+      <Tooltip title="Logout" placement="right">
+        <Box
+          className={classes.menuItem}
+          marginTop="auto"
+          onClick={handleLogout}
+        >
+          <ExitToApp />
+        </Box>
+      </Tooltip>
     </Box>
   );
 };
